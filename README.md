@@ -49,6 +49,34 @@ Optimal Solution
 
 The optimal solution will show how many Wooden Tables and Glass Tables should be produced to maximize profit while satisfying the resource constraints.
 
+from scipy.optimize import linprog
+
+# Coefficients of the objective function (maximize profit)
+c = [-50, -80]  # Negative because linprog does minimization by default
+
+# Coefficients of the inequality constraints
+A = [[4, 2],   # Wood constraint
+     [3, 4],   # Labor constraint
+     [0, 2]]   # Glass constraint
+
+# Right-hand side of the inequality constraints
+b = [100, 80, 30]
+
+# Bounds for x1 and x2 (non-negativity constraints)
+bounds = [(0, None), (0, None)]
+
+# Solving the LP problem
+result = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='highs')
+
+# Output Results
+if result.success:
+    print("Optimal Solution Found")
+    print(f"Number of Wooden Tables: {result.x[0]:.2f}")
+    print(f"Number of Glass Tables: {result.x[1]:.2f}")
+    print(f"Maximum Profit: ${-result.fun:.2f}")
+else:
+    print("No Optimal Solution Found")
+
 References
 
 Winston, W. L. (2004). Operations Research: Applications and Algorithms. Duxbury Press.
