@@ -77,6 +77,26 @@ if result.success:
 else:
     print("No Optimal Solution Found")
 
+How the Code Works
+
+Objective Function: The profit is represented as a negative because linprog minimizes by default.
+
+Constraints: Each constraint is represented as an inequality.
+
+Bounds: Both decision variables are constrained to be non-negative.
+
+Optimization: The linprog function from SciPy is used to solve the LP problem.
+
+Result Display: The solution displays the optimal production quantities and the maximum profit.
+
+Possible Extensions
+
+Add a constraint for storage capacity.
+
+Introduce a third product like Chairs.
+
+Include fixed production costs.
+
 References
 
 Winston, W. L. (2004). Operations Research: Applications and Algorithms. Duxbury Press.
