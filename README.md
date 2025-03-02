@@ -1,4 +1,6 @@
 # problem-in-phyton
+Linear Programming Problem: Manufacturing Production Model
+
 Problem Description
 
 A small furniture manufacturing company produces two types of tables: Wooden Tables and Glass Tables. The company wants to maximize its profit. Each type of table requires wood, labor hours, and glass (only for glass tables). The company has limited resources of wood, labor hours, and glass. The goal is to determine how many of each type of table should be produced to maximize profit.
@@ -50,82 +52,3 @@ The optimal solution will show how many Wooden Tables and Glass Tables should be
 References
 
 Winston, W. L. (2004). Operations Research: Applications and Algorithms. Duxbury Press.
-
-Python Code
-
-from scipy.optimize import linprog
-
-# Coefficients of the objective function (maximize profit)
-c = [-50, -80]  # Negative because linprog does minimization by default
-
-# Coefficients of the inequality constraints
-A = [[4, 2],   # Wood constraint
-     [3, 4],   # Labor constraint
-     [0, 2]]   # Glass constraint
-
-# Right-hand side of the inequality constraints
-b = [100, 80, 30]
-
-# Bounds for x1 and x2 (non-negativity constraints)
-bounds = [(0, None), (0, None)]
-
-# Solving the LP problem
-result = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='highs')
-
-# Output Results
-if result.success:
-    print("Optimal Solution Found")
-    print(f"Number of Wooden Tables: {result.x[0]:.2f}")
-    print(f"Number of Glass Tables: {result.x[1]:.2f}")
-    print(f"Maximum Profit: ${-result.fun:.2f}")
-else:
-    print("No Optimal Solution Found")
-
-    from scipy.optimize import linprog
-
-# Coefficients of the objective function (maximize profit)
-c = [-50, -80]  # Negative because linprog does minimization by default
-
-# Coefficients of the inequality constraints
-A = [[4, 2],   # Wood constraint
-     [3, 4],   # Labor constraint
-     [0, 2]]   # Glass constraint
-
-# Right-hand side of the inequality constraints
-b = [100, 80, 30]
-
-# Bounds for x1 and x2 (non-negativity constraints)
-bounds = [(0, None), (0, None)]
-
-# Solving the LP problem
-result = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='highs')
-
-# Output Results
-if result.success:
-    print("Optimal Solution Found")
-    print(f"Number of Wooden Tables: {result.x[0]:.2f}")
-    print(f"Number of Glass Tables: {result.x[1]:.2f}")
-    print(f"Maximum Profit: ${-result.fun:.2f}")
-else:
-    print("No Optimal Solution Found")
-
-How the Code Works
-
-Objective Function: The profit is represented as a negative because linprog minimizes by default.
-
-Constraints: Each constraint is represented as an inequality.
-
-Bounds: Both decision variables are constrained to be non-negative.
-
-Optimization: The linprog function from SciPy is used to solve the LP problem.
-
-Result Display: The solution displays the optimal production quantities and the maximum profit.
-
-Possible Extensions
-
-Add a constraint for storage capacity.
-
-Introduce a third product like Chairs.
-
-Include fixed production costs.
-
