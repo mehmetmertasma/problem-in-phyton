@@ -1,1 +1,34 @@
+from scipy.optimize import linprog
+
+# Coefficients of the objective function (Maximize profit, so negative sign is used)
+c = [-50, -80]  # Profit per Wooden Table = $50, Profit per Glass Table = $80 (Negative for maximization)
+
+# Coefficients of inequality constraints
+A = [[4, 2],    # Wood constraint: 4x1 + 2x2 ≤ 100
+     [3, 4],    # Labor constraint: 3x1 + 4x2 ≤ 80
+     [0, 2]]    # Glass constraint: 2x2 ≤ 30
+
+# Right-hand side of the inequality constraints
+b = [100, 80, 30]
+
+# Bounds for the decision variables (Non-negative constraints)
+bounds = [(0, float("inf")), (0, float("inf"))]
+
+# Solving the LP problem
+result = linprog(c, A_ub=A, b_ub=b, bounds=bounds, method='highs')
+
+# Displaying the result
+if result.success:
+    print("✅ Optimal Solution Found")
+    print(f"Number of Wooden Tables: {result.x[0]:.2f}")
+    print(f"Number of Glass Tables: {result.x[1]:.2f}")
+    print(f"Maximum Profit: ${-result.fun:.2f}")  # Converting back to positive for maximization
+else:
+    print("❌ No Optimal Solution Found")
+
+# Explanation:
+# 1. We convert the maximization problem to a minimization problem by using negative profit.
+# 2. The constraints are added using the matrix A and array b.
+# 3. The `bounds` parameter ensures no negative production quantities.
+# 4. The result is printed with the optimal production quantities and the maximum profit.
 
